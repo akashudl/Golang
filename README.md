@@ -7,13 +7,8 @@ It is a project shell to create a Windows service.
 
 The program compiles and runs on GO 1.8.  The generated executable accepts a single parameter.  The parameter values include:
 
-* debug - runs the program from the command-line
-* install - installs a windows service
-* remove - removes the windows service
 * start
-* stop
-* pause
-* continue
+
 
 ## Installing and Updating a Service
 
@@ -41,25 +36,8 @@ be no need to modify this code.
 
 The only code you should need to change is in main.go.
 
-* Replace the import of `github.com/billgraziano/go-windows-svc/app` with the path to your package.
-* `svcName` - This constant is the name of the installed service.  This is used for NET START and NET STOP commands.
-* `svcNameLong` - This is the longer service name that appears in the Services control panel.
-* `svcLauncher()` - This launches app.Run passing it a Windows Event Logger, the `svcName`, and the SHA1 hash from GIT.
 
 You should also rename the `gosvc` directory to the name of your executable.
-
-* `setup()` - This function is called to do any application setup.  If returns a non-nil error, the service will exit.
-* `yourApp()` - This is launched as a GO routine.  This is the body of your application.  Here you can launch web servers, listeners, or whatever your application does.
-
-
-
-## Advanced
-### Logging
-The `server` struct exposes a `winlog` variable that is a logger.  This will write to the console when running interactively and to the Winodws Application Event Log when running as a service.  I typically use this for any service errors, start and stop notification, and any issues reading configuration or setting up logging.
-
-### Other 
-This uses the [GO error wrapper package]("github.com/pkg/errors").  You can easily 
-remove it if you prefer not to use it.
 
 
 
